@@ -9,20 +9,22 @@ import { useParams } from "react-router-dom";
 
 const Author = () => {
   
-  const [authors, setAuthors] = useState({});
+  const [author, setAuthor] = useState(null);
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
 
   useEffect (() => {
-    const fetchAuthors = async () => {
+    const fetchAuthor = async () => {
       try {
         const response = await axios.get(
           `https://us-central1-nft-cloud-functions.cloudfunctions.net/authors?author=${id}`
         );
 
-        console.log(response.data); 
+          console.log("API RESPONSE:", response.data);
+          console.log("TYPE:", typeof response.data);
+          console.log("IS ARRAY:", Array.isArray(response.data));
 
-        setAuthors(response.data);
+        setAuthor(response.data);
       } catch(error) {
         console.log(error);
       } finally {
@@ -30,8 +32,9 @@ const Author = () => {
       }
     };
 
-    fetchAuthors();
-  }, []);
+    fetchAuthor();
+  }, [id]);
+
 
   if (loading) {
     return (
@@ -41,7 +44,9 @@ const Author = () => {
 
 
   return (
-    <div id="wrapper">
+    
+
+<div id="wrapper">
       <div className="no-bottom no-top" id="content">
         <div id="top"></div>
 
@@ -60,15 +65,15 @@ const Author = () => {
                 <div className="d_profile de-flex">
                   <div className="de-flex-col">
                     <div className="profile_avatar">
-                      <img src={authors.authorImage} alt="" />
+                      <img src={author.authorImage} alt="" />
 
                       <i className="fa fa-check"></i>
                       <div className="profile_name">
                         <h4>
-                          {authors.authorName}
-                          <span className="profile_username">{authors.tag}</span>
+                          {author.authorName}
+                          <span className="profile_username">{author.tag}</span>
                           <span id="wallet" className="profile_wallet">
-                            {authors.address}
+                            {author.address}
                           </span>
                           <button id="btn_copy" title="Copy Text">
                             Copy
@@ -79,7 +84,7 @@ const Author = () => {
                   </div>
                   <div className="profile_follow de-flex">
                     <div className="de-flex-col">
-                      <div className="profile_follower">{authors.followers}</div>
+                      <div className="profile_follower">{author.followers}</div>
                       <Link to="#" className="btn-main">
                         Follow
                       </Link>
