@@ -3,8 +3,41 @@ import AuthorBanner from "../images/author_banner.jpg";
 import AuthorItems from "../components/author/AuthorItems";
 import { Link } from "react-router-dom";
 import AuthorImage from "../images/author_thumbnail.jpg";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const Author = () => {
+  
+  const [authors, setAuthors] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect (() => {
+    const fetchAuthors = async () => {
+      try {
+        const response = await axios.get(
+          "https://us-central1-nft-cloud-functions.cloudfunctions.net/authors?author={id}"
+        );
+
+        console.log(response.data); 
+
+        setAuthors(response.data);
+      } catch(error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAuthors();
+  }, []);
+
+  if (loading) {
+    return (
+      <div>Loading Placeholder</div>
+    )
+  }
+
+
   return (
     <div id="wrapper">
       <div className="no-bottom no-top" id="content">
