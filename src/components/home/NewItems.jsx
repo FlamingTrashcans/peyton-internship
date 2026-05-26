@@ -8,19 +8,10 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css';
 import { useState, useEffect } from "react";
 import axios from "axios";
+import ReusableItemsCountdown from "../explore/ReusableItemsCountdown";
 
 
 const NewItems = () => {
-
-  const [currentTime, setCurrentTime] = useState(Date.now());
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTime(Date.now())
-    }, 1000)
-
-    return () => clearInterval(interval)
-  }, [])
 
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -98,26 +89,6 @@ const NewItems = () => {
     )
   } 
 
-  const getTimeRemaining = (expiryDate) => {
-    const difference = expiryDate - Date.now();
-
-    if (difference <= 0) {
-      return "Expired";
-    }
-
-    const hours = Math.floor(difference / (1000 * 60 * 60));
-
-    const minutes = Math.floor(
-      (difference % (1000* 60 * 60)) / (1000 * 60)
-    );
-
-    const seconds = Math.floor (
-      (difference % (1000 * 60)) / 1000
-    );
-
-    return `${hours}h ${minutes}m ${seconds}`;
-  }
-
   return (
     <section id="section-items" className="no-bottom">
       <div className="container">
@@ -143,9 +114,7 @@ const NewItems = () => {
                     <i className="fa fa-check"></i>
                   </Link>
                 </div>
-                {item.expiryDate && (
-                <div className="de_countdown">{getTimeRemaining(item.expiryDate)}</div>
-                )}
+                <ReusableItemsCountdown expiryDate={item.expiryDate}/>
 
                 <div className="nft__item_wrap">
                   <div className="nft__item_extra">
