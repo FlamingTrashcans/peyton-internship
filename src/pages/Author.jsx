@@ -6,41 +6,87 @@ import AuthorImage from "../images/author_thumbnail.jpg";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import './Author.css'
 
 const Author = () => {
   
-  const [author, setAuthor] = useState(null);
+  const [author, setAuthor] = useState({});
   const [loading, setLoading] = useState(true);
-  const { id } = useParams();
+  const { authorId } = useParams();
+
+  const [isFollowing, setIsFollowing] = useState(false);
 
   useEffect (() => {
     const fetchAuthor = async () => {
       try {
         const response = await axios.get(
-          `https://us-central1-nft-cloud-functions.cloudfunctions.net/authors?author=${id}`
+          `https://us-central1-nft-cloud-functions.cloudfunctions.net/authors?author=${authorId}`
         );
 
-          console.log("API RESPONSE:", response.data);
-          console.log("TYPE:", typeof response.data);
-          console.log("IS ARRAY:", Array.isArray(response.data));
-
+        
         setAuthor(response.data);
       } catch(error) {
         console.log(error);
       } finally {
         setLoading(false);
       }
+
+
     };
 
     fetchAuthor();
-  }, [id]);
+  }, [authorId]);
+
+  const toggleFollow = () => {
+    setAuthor(prev => {
+    const currentFollowers = Number(prev.followers);
+
+    return {
+      ...prev,
+      followers: isFollowing
+        ? currentFollowers - 1
+        : currentFollowers + 1
+    };
+  });
+
+  setIsFollowing(prev => !prev);
+};
 
 
   if (loading) {
-    return (
-      <div>Loading Placeholder</div>
-    )
-  }
+  return (
+    <div id="wrapper">
+      <div className="container">
+        <div className="skeleton-author-wrapper skeleton">
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <div className="skeleton-author-avatar" />
+            <div className="skeleton-author-info">
+              <div className="skeleton-author-name" />
+              <div className="skeleton-author-tag" />
+              <div className="skeleton-author-address" />
+            </div>
+          </div>
+          <div>
+            <div className="skeleton-followers" />
+            <div className="skeleton-follow-btn" />
+          </div>
+        </div>
+        <div className="row">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <div className="col-lg-3 col-md-6 col-sm-6" key={i}>
+              <div className="skeleton-nft-card skeleton">
+                <div className="skeleton-nft-image" />
+                <div className="skeleton-nft-title" />
+                <div className="skeleton-nft-price" />
+                <div className="skeleton-nft-like" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 
   return (
@@ -85,9 +131,9 @@ const Author = () => {
                   <div className="profile_follow de-flex">
                     <div className="de-flex-col">
                       <div className="profile_follower">{author.followers}</div>
-                      <Link to="#" className="btn-main">
-                        Follow
-                      </Link>
+                      <button className="btn-main" onClick={toggleFollow}>
+                        {isFollowing ? "Unfollow" : "Follow"}
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -95,7 +141,7 @@ const Author = () => {
 
               <div className="col-md-12">
                 <div className="de_tab tab_simple">
-                  <AuthorItems />
+                  <AuthorItems author={author} />
                 </div>
               </div>
             </div>
