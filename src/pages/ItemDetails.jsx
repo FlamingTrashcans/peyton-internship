@@ -5,6 +5,9 @@ import AuthorImage from "../images/author_thumbnail.jpg";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import './ItemDetails.css'
+import AOS from "aos";
+import 'aos/dist/aos.css';
+
 
 const ItemDetails = () => {
  
@@ -33,6 +36,13 @@ const [loading, setLoading] = useState(true);
 
     fetchDetails();
   }, [nftId]);
+
+  
+  useEffect(() => {
+  if (details) {
+    AOS.refresh();
+  }
+}, [details]);
 
   if (loading || !details) {
   return (
@@ -110,7 +120,7 @@ const [loading, setLoading] = useState(true);
                   alt=""
                 />
               </div>
-              <div className="col-md-6">
+              <div className="col-md-6" >
                 <div className="item_info">
                   <h2>{details.title} #{details.tag}</h2>
 

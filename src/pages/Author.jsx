@@ -7,6 +7,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import './Author.css'
+import AOS from "aos";
+import 'aos/dist/aos.css';
 
 const Author = () => {
   
@@ -36,6 +38,13 @@ const Author = () => {
 
     fetchAuthor();
   }, [authorId]);
+
+  useEffect(() => {
+    if (author) {
+      AOS.refresh();
+    }
+  }, [author]);
+
 
   const toggleFollow = () => {
     setAuthor(prev => {
@@ -106,7 +115,7 @@ const Author = () => {
 
         <section aria-label="section">
           <div className="container">
-            <div className="row">
+            <div className="row" data-aos="fade-up">
               <div className="col-md-12">
                 <div className="d_profile de-flex">
                   <div className="de-flex-col">
