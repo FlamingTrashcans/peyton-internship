@@ -4,11 +4,12 @@ import { Link } from "react-router-dom";
 import AuthorImage from "../images/author_thumbnail.jpg";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import './ItemDetails.css'
 
 const ItemDetails = () => {
  
 const { nftId } = useParams();
-const [details, setDetails] = useState([]);
+const [details, setDetails] = useState(null);
 const [loading, setLoading] = useState(true);
 
  useEffect (() => {
@@ -33,7 +34,7 @@ const [loading, setLoading] = useState(true);
     fetchDetails();
   }, [nftId]);
 
-  if (loading) {
+  if (loading || !details) {
   return (
     <div id="wrapper">
       <div className="no-bottom no-top" id="content">
@@ -131,13 +132,13 @@ const [loading, setLoading] = useState(true);
                       <h6>Owner</h6>
                       <div className="item_author">
                         <div className="author_list_pp">
-                          <Link to="/author">
+                          <Link to={`/author/${details.ownerId}`}>
                             <img className="lazy" src={AuthorImage} alt="" />
                             <i className="fa fa-check"></i>
                           </Link>
                         </div>
                         <div className="author_list_info">
-                          <Link to="/author">Monica Lucas</Link>
+                          <Link to="/author">{details.ownerName}</Link>
                         </div>
                       </div>
                     </div>
@@ -148,13 +149,13 @@ const [loading, setLoading] = useState(true);
                       <h6>Creator</h6>
                       <div className="item_author">
                         <div className="author_list_pp">
-                          <Link to="/author">
+                          <Link to={`/author/${details.creatorId}`}>
                             <img className="lazy" src={AuthorImage} alt="" />
                             <i className="fa fa-check"></i>
                           </Link>
                         </div>
                         <div className="author_list_info">
-                          <Link to="/author">Monica Lucas</Link>
+                          <Link to="/author">{details.creatorName}</Link>
                         </div>
                       </div>
                     </div>
