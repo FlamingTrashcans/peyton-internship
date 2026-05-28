@@ -22,8 +22,6 @@ const [loading, setLoading] = useState(true);
           `https://us-central1-nft-cloud-functions.cloudfunctions.net/itemDetails?nftId=${nftId}`
         );
 
-        const data = response.data;
-
         setDetails(response.data);
       } catch(error) {
         console.log(error);
