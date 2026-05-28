@@ -34,7 +34,7 @@ const [loading, setLoading] = useState(true);
     fetchDetails();
   }, [nftId]);
 
-  if (loading || !details) {
+  if (loading) {
   return <div>Loading...</div>;
 }
 
