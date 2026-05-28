@@ -46,12 +46,14 @@ const NewItems = () => {
         breakpoint: 992,
         settings: {
           slidesToShow: 2,
+          slidesToScroll: 2,
         },
       },
       {
         breakpoint: 576,
         settings: {
           slidesToShow: 1,
+          slidesToScroll: 1,
         },
       },
     ],
