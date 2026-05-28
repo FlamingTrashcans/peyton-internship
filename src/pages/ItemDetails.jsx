@@ -33,7 +33,7 @@ const [loading, setLoading] = useState(true);
     fetchDetails();
   }, [nftId]);
 
-  if (loading || !details) {
+  if (loading) {
   return (
     <div id="wrapper">
       <div className="no-bottom no-top" id="content">
