@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import EthImage from "../images/ethereum.svg";
 import { Link } from "react-router-dom";
 import AuthorImage from "../images/author_thumbnail.jpg";
-import nftImage from "../images/nftImage.jpg";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -34,8 +33,66 @@ const [loading, setLoading] = useState(true);
     fetchDetails();
   }, [nftId]);
 
-  if (loading) {
-  return <div>Loading...</div>;
+  if (loading || !details) {
+  return (
+    <div id="wrapper">
+      <div className="no-bottom no-top" id="content">
+        <div id="top"></div>
+
+        <section aria-label="section" className="mt90 sm-mt-0">
+          <div className="container">
+            <div className="row">
+              
+              <div className="col-md-6 text-center">
+                <div className="skeleton-detail-image skeleton"></div>
+              </div>
+
+              <div className="col-md-6">
+                <div className="item_info">
+
+                  <div className="skeleton-detail-title skeleton"></div>
+
+                  <div className="item_info_counts">
+                    <div className="skeleton-detail-stat skeleton"></div>
+                    <div className="skeleton-detail-stat skeleton"></div>
+                  </div>
+
+                  <div className="skeleton-detail-text skeleton"></div>
+                  <div className="skeleton-detail-text skeleton"></div>
+                  <div className="skeleton-detail-text short skeleton"></div>
+
+                  <div className="d-flex flex-row mt-4">
+                    <div className="mr40">
+                      <div className="skeleton-detail-label skeleton"></div>
+
+                      <div className="item_author">
+                        <div className="skeleton-detail-avatar skeleton"></div>
+
+                        <div className="author_list_info">
+                          <div className="skeleton-detail-name skeleton"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="spacer-40"></div>
+
+                  <div className="skeleton-detail-label skeleton"></div>
+
+                  <div className="nft-item-price">
+                    <div className="skeleton-detail-eth skeleton"></div>
+                    <div className="skeleton-detail-price skeleton"></div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  );
 }
 
   return (
