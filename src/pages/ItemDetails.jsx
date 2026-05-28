@@ -8,7 +8,7 @@ import axios from "axios";
 
 const ItemDetails = () => {
  
-const { id } = useParams();
+const { nftId } = useParams();
 const [details, setDetails] = useState([]);
 const [loading, setLoading] = useState(true);
 
@@ -16,13 +16,10 @@ const [loading, setLoading] = useState(true);
     const fetchDetails = async () => {
       try {
         const response = await axios.get(
-          `https://us-central1-nft-cloud-functions.cloudfunctions.net/itemDetails?nftId=${id}`
+          `https://us-central1-nft-cloud-functions.cloudfunctions.net/itemDetails?nftId=${nftId}`
         );
 
         const data = response.data;
-
-        console.log("DATA:", data);
-        console.log("ID:", id)
 
         setDetails(response.data);
       } catch(error) {
@@ -35,7 +32,7 @@ const [loading, setLoading] = useState(true);
     };
 
     fetchDetails();
-  }, [id]);
+  }, [nftId]);
 
   if (loading || !details) {
   return <div>Loading...</div>;
