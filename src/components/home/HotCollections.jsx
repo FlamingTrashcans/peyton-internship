@@ -38,7 +38,7 @@ const HotCollections = () => {
     return (
       <div className="skeleton-wrapper">
         {new Array(4).fill(0).map((_, index) => (
-          <div className="skeleton-card">
+          <div className="skeleton-card" key={index}>
               <div className="skeleton-image"></div>
               <div className="skeleton-profile"></div>
               <div className="skeleton-text"></div>
@@ -89,7 +89,7 @@ const HotCollections = () => {
             <div className="slider-item" key={collection.id}>
               <div className="nft_coll">
                 <div className="nft_wrap">
-                  <Link to="/item-details">
+                  <Link to={`/item-details/${collection.nftId}`}>
                     <img src={collection.nftImage} className="lazy img-fluid" alt="" />
                   </Link>
                 </div>

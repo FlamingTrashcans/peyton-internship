@@ -117,7 +117,7 @@ const Author = () => {
                       <div className="profile_name">
                         <h4>
                           {author.authorName}
-                          <span className="profile_username">{author.tag}</span>
+                          <span className="profile_username">@{author.tag}</span>
                           <span id="wallet" className="profile_wallet">
                             {author.address}
                           </span>
@@ -130,7 +130,7 @@ const Author = () => {
                   </div>
                   <div className="profile_follow de-flex">
                     <div className="de-flex-col">
-                      <div className="profile_follower">{author.followers}</div>
+                      <div className="profile_follower">{author.followers} Followers</div>
                       <button className="btn-main" onClick={toggleFollow}>
                         {isFollowing ? "Unfollow" : "Follow"}
                       </button>
