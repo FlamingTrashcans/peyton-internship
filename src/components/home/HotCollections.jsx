@@ -86,7 +86,7 @@ const HotCollections = () => {
         
         <Slider {...settings}>
           {collections.map((collection) => (
-            <div className="slider-item" key={collection.id}>
+            <div className="slider-item" key={collection.id} data-aos="fade-left">
               <div className="nft_coll">
                 <div className="nft_wrap">
                   <Link to={`/item-details/${collection.nftId}`}>

@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import ReusableItemsCountdown from "./ReusableItemsCountdown";
 import Filter from "./Filter";
+import AOS from "aos";
+import 'aos/dist/aos.css';
+
 
 const ExploreItems = () => {
   
@@ -47,6 +50,12 @@ const ExploreItems = () => {
   fetchEItems();
 
   }, [filter]);
+
+  useEffect(() => {
+    if (eItems) {
+      AOS.refresh();
+    }
+  }, [eItems]);
 
   useEffect (() => {
     const fetchEItems = async () => {
@@ -117,7 +126,7 @@ const ExploreItems = () => {
           className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12"
           style={{ display: "block", backgroundSize: "cover" }}
         >
-          <div className="nft__item">
+          <div className="nft__item" data-aos="fade-up">
             <div className="author_list_pp">
               <Link
                 to="/author"

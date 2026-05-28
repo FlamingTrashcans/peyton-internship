@@ -101,7 +101,7 @@ const NewItems = () => {
           </div>
           <Slider {...settings}>
           {items.map((item) => (
-            <div className="slider-item" key={item.id}>
+            <div className="slider-item" key={item.id} data-aos="fade-left">
               <div className="nft__item">
                 <div className="author_list_pp">
                   <Link
